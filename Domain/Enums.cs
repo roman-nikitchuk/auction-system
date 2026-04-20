@@ -2,9 +2,8 @@
 {
     public enum AuctionStatus
     {
-        Default,
         Active,
-        Finished,
+        Ended,
         Cancelled
     }
 }
