@@ -5,7 +5,7 @@ namespace Domain.Entities
     public class Auction : AuditableEntity, IEntity
     {
         public int Id { get; private set; }
-        public int UserId { get; private set; }
+        public int OwnerId { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
         public int CategoryId { get; private set; }
@@ -22,7 +22,7 @@ namespace Domain.Entities
             int userId, string title, string description, int categoryId,
             decimal startingPrice, DateTime startDate, DateTime endDate)
         {
-            UserId = userId;
+            OwnerId = userId;
             Title = title;
             Description = description;
             CategoryId = categoryId;
@@ -61,7 +61,7 @@ namespace Domain.Entities
 
         public void Close()
         {
-            Status = AuctionStatus.Finished;
+            Status = AuctionStatus.Ended;
             UpdatedAt = DateTime.UtcNow;
         }
 
