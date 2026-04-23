@@ -8,25 +8,24 @@ namespace Domain.Entities
         public string UserName { get; private set; }
         public string Email { get; private set; }
         public string PasswordHash { get; private set; }
-        public int RoleId { get; private set; }
+        public UserRole Role { get; private set; }
 
-        public Role? Role { get; private set; }
         public ICollection<Auction>? Auctions { get; private set; } = [];
         public ICollection<Bid>? Bids { get; private set; } = [];
 
         private User(
-            string userName, string email, string passwordHash, int roleId)
+            string userName, string email, string passwordHash, UserRole role = UserRole.User)
         {
             UserName = userName;
             Email = email;
             PasswordHash = passwordHash;
-            RoleId = roleId;
+            Role = role;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = null;
         }
 
-        public static User New(string userName, string email, string passwordHash, int roleId)
-            => new User(userName, email, passwordHash, roleId);
+        public static User New(string userName, string email, string passwordHash, UserRole role = UserRole.User)
+            => new User(userName, email, passwordHash, role);
 
         public void UpdateDetails(string userName, string email)
         {

@@ -6,4 +6,10 @@
         Ended,
         Cancelled
     }
+
+    public enum UserRole
+    {
+        User,  
+        Admin  
+    }
 }
