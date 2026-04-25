@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configurations
+namespace Infrastructure.Configurations;
+
+public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
-    internal class CategoryConfiguration
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Name)
+            .HasColumnType("varchar(100)")
+            .IsRequired();
+
+        builder.HasMany(x => x.Auctions)
+            .WithOne(x => x.Category)
+            .HasForeignKey(x => x.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
