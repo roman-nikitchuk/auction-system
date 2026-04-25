@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace Application.Users.Commands
+namespace Application.Users.Commands;
+
+public class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
 {
-    internal class DeleteUserCommandValidator
+    public DeleteUserCommandValidator()
     {
+        RuleFor(x => x.Id).GreaterThan(0);
     }
 }
