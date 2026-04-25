@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace Application.Bids.Commands
+namespace Application.Bids.Commands;
+
+public class CreateBidCommandValidator : AbstractValidator<CreateBidCommand>
 {
-    internal class CreateBidCommandValidator
+    public CreateBidCommandValidator()
     {
+        RuleFor(x => x.AuctionId).GreaterThan(0);
+        RuleFor(x => x.UserId).GreaterThan(0);
+        RuleFor(x => x.Amount).GreaterThan(0);
     }
 }
