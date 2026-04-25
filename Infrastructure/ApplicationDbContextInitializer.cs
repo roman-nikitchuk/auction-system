@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public class AppDbContextInitializer(
+    ILogger<AppDbContextInitializer> logger,
+    AppDbContext context)
 {
-    internal class ApplicationDbContextInitializer
+    public async Task InitialiseAsync()
     {
+        try
+        {
+            await context.Database.MigrateAsync();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred during database initialisation");
+            throw;
+        }
     }
 }
