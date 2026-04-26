@@ -18,7 +18,6 @@ public static class ConfigureInfrastructureServices
 
         services.AddScoped<AppDbContextInitializer>();
 
-        // репозиторії
         services.AddScoped<IRepository<User>, UserRepository>();
         services.AddScoped<IUserQueries, UserRepository>();
 
