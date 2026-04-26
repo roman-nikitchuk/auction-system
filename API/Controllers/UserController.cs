@@ -1,7 +1,7 @@
 ﻿using Api.Dtos;
 using Api.Modules.Errors;
-using Application.Common.Interfaces.Queries;
 using Application.Users.Commands;
+using Application.Common.Interfaces.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +9,7 @@ namespace Api.Controllers;
 
 [Route("api/users")]
 [ApiController]
-public class UsersController(ISender sender, IUserQueries userQueries) : ControllerBase
+public class UserController(ISender sender, IUserQueries userQueries) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<UserDto>>> GetAll(
