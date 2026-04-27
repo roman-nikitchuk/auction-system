@@ -19,10 +19,10 @@ namespace Domain.Entities
         public ICollection<Bid>? Bids { get; private set; } = [];
 
         private Auction(
-            int userId, string title, string description, int categoryId,
+            int ownerId, string title, string description, int categoryId,
             decimal startingPrice, DateTime startDate, DateTime endDate)
         {
-            OwnerId = userId;
+            OwnerId = ownerId;
             Title = title;
             Description = description;
             CategoryId = categoryId;
@@ -36,9 +36,9 @@ namespace Domain.Entities
         }
 
         public static Auction New(
-            int userId, string title, string description, int categoryId,
+            int ownerId, string title, string description, int categoryId,
             decimal startingPrice, DateTime startDate, DateTime endDate)
-            => new Auction(userId, title, description, categoryId,
+            => new Auction(ownerId, title, description, categoryId,
                 startingPrice, startDate, endDate);
 
         public void UpdateDetails(
