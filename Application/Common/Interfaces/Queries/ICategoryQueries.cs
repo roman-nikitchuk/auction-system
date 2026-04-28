@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
+﻿using CategoryEntity = Domain.Entities.Category;
 using LanguageExt;
 
 namespace Application.Common.Interfaces.Queries;
 
-public interface ICategoryQueries : IBaseQuery<Category>
+public interface ICategoryQueries : IBaseQuery<CategoryEntity>
 {
-    Task<Option<Category>> GetByNameAsync(string name, CancellationToken cancellationToken);
+    Task<Option<CategoryEntity>> GetByNameAsync(string name, CancellationToken cancellationToken);
 }
