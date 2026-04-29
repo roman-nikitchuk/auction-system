@@ -28,3 +28,7 @@ public record CreateUserDto(
 public record UpdateUserDto(
     string UserName,
     string Email);
+
+public record LoginUserDto(
+    string Email,
+    string Password);

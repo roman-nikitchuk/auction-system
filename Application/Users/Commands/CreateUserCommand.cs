@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces.Queries;
 using Application.Common.Interfaces.Repositories;
+using Domain;
 using Domain.Entities;
 using LanguageExt;
 using MediatR;
@@ -29,14 +30,17 @@ public class CreateUserCommandHandler(
     }
 
     private async Task<Either<BaseException, User>> CreateEntity(
-        CreateUserCommand request, CancellationToken cancellationToken)
+    CreateUserCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
+            var isFirstUser = !(await userQueries.GetAllAsync(cancellationToken)).Any();
+            var role = isFirstUser ? UserRole.Admin : UserRole.User;
+
             var user = await userRepository.CreateAsync(
-                User.New(request.UserName, request.Email, passwordHash),
+                User.New(request.UserName, request.Email, passwordHash, role),
                 cancellationToken);
 
             return user;

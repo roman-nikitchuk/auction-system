@@ -1,14 +1,16 @@
 ﻿using Api.Dtos;
 using Api.Modules.Errors;
-using Application.Users.Commands;
 using Application.Common.Interfaces.Queries;
+using Application.Users.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("api/users")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class UserController(ISender sender, IUserQueries userQueries) : ControllerBase
 {
     [HttpGet]

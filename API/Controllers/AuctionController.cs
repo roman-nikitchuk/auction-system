@@ -4,15 +4,18 @@ using Application.Auctions.Commands;
 using Application.Common.Interfaces.Queries;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("api/auctions")]
 [ApiController]
+[Authorize]
 public class AuctionController(ISender sender, IAuctionQueries auctionQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<AuctionDto>>> GetAll(
         [FromQuery] int? categoryId,
         [FromQuery] AuctionStatus? status,
@@ -31,6 +34,7 @@ public class AuctionController(ISender sender, IAuctionQueries auctionQueries) :
     }
 
     [HttpGet("{auctionId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<AuctionDto>> GetById(
         [FromRoute] int auctionId,
         CancellationToken cancellationToken)

@@ -3,15 +3,18 @@ using Api.Modules.Errors;
 using Application.Bids.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("api/auctions/{auctionId:int}/bids")]
 [ApiController]
+[Authorize]
 public class BidController(ISender sender, IBidQueries bidQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<BidDto>>> GetByAuction(
         [FromRoute] int auctionId,
         CancellationToken cancellationToken)
