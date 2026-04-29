@@ -3,6 +3,7 @@ using Api.Modules.Errors;
 using Application.Categories.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -14,6 +15,7 @@ public class CategoryController(
     ICategoryQueries categoryQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<CategoryDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -22,6 +24,7 @@ public class CategoryController(
     }
 
     [HttpGet("{categoryId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<CategoryDto>> GetById(
         [FromRoute] int categoryId,
         CancellationToken cancellationToken)
@@ -34,6 +37,7 @@ public class CategoryController(
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CategoryDto>> Create(
         [FromBody] CreateCategoryDto request,
         CancellationToken cancellationToken)

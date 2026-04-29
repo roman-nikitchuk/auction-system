@@ -1,7 +1,9 @@
 ﻿using Application.Common.Interfaces.Queries;
 using Application.Common.Interfaces.Repositories;
+using Application.Common.Interfaces.Services;
 using Domain.Entities;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,5 +31,7 @@ public static class ConfigureInfrastructureServices
 
         services.AddScoped<IRepository<Category>, CategoryRepository>();
         services.AddScoped<ICategoryQueries, CategoryRepository>();
+
+        services.AddScoped<ITokenService, TokenService>();
     }
 }
