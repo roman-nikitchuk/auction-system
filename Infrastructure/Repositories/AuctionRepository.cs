@@ -46,8 +46,20 @@ public class AuctionRepository : BaseRepository<Auction>, IRepository<Auction>, 
 
     public async Task<Auction> UpdateAsync(Auction entity, CancellationToken cancellationToken)
     {
-        _context.Auctions.Update(entity);
-        await _context.SaveChangesAsync(cancellationToken);
+        await _context.Auctions
+            .Where(a => a.Id == entity.Id)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(a => a.Title, entity.Title)
+                .SetProperty(a => a.Description, entity.Description)
+                .SetProperty(a => a.CategoryId, entity.CategoryId)
+                .SetProperty(a => a.StartDate, entity.StartDate)
+                .SetProperty(a => a.EndDate, entity.EndDate)
+                .SetProperty(a => a.CurrentBid, entity.CurrentBid)
+                .SetProperty(a => a.Status, entity.Status)
+                .SetProperty(a => a.ImageUrl, entity.ImageUrl)
+                .SetProperty(a => a.UpdatedAt, entity.UpdatedAt),
+            cancellationToken);
+
         return entity;
     }
 

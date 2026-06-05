@@ -14,13 +14,15 @@ namespace Domain.Entities
         public decimal CurrentBid { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
+        public string? ImageUrl { get; private set; }
         public User? Owner { get; private set; }
         public Category? Category { get; private set; }
         public ICollection<Bid>? Bids { get; private set; } = [];
 
         private Auction(
             int ownerId, string title, string description, int categoryId,
-            decimal startingPrice, DateTime startDate, DateTime endDate)
+            decimal startingPrice, DateTime startDate, DateTime endDate,
+            string? imageUrl = null)
         {
             OwnerId = ownerId;
             Title = title;
@@ -31,25 +33,29 @@ namespace Domain.Entities
             CurrentBid = startingPrice;
             StartDate = startDate;
             EndDate = endDate;
+            ImageUrl = imageUrl;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = null;
         }
 
         public static Auction New(
             int ownerId, string title, string description, int categoryId,
-            decimal startingPrice, DateTime startDate, DateTime endDate)
+            decimal startingPrice, DateTime startDate, DateTime endDate,
+            string? imageUrl = null)
             => new Auction(ownerId, title, description, categoryId,
-                startingPrice, startDate, endDate);
+                startingPrice, startDate, endDate, imageUrl);
 
         public void UpdateDetails(
             string title, string description, int categoryId,
-            DateTime startDate, DateTime endDate)
+            DateTime startDate, DateTime endDate,
+            string? imageUrl = null)
         {
             Title = title;
             Description = description;
             CategoryId = categoryId;
             StartDate = startDate;
             EndDate = endDate;
+            ImageUrl = imageUrl;
             UpdatedAt = DateTime.UtcNow;
         }
 

@@ -16,6 +16,7 @@ public class UpdateAuctionCommand : IRequest<Either<BaseException, Auction>>
     public required int CategoryId { get; init; }
     public required DateTime StartDate { get; init; }
     public required DateTime EndDate { get; init; }
+    public string? ImageUrl { get; init; }
 }
 
 public class UpdateAuctionCommandHandler(
@@ -60,7 +61,8 @@ public class UpdateAuctionCommandHandler(
                 request.Description,
                 request.CategoryId,
                 request.StartDate,
-                request.EndDate);
+                request.EndDate,
+                request.ImageUrl);
 
             return await auctionRepository.UpdateAsync(auction, cancellationToken);
         }
