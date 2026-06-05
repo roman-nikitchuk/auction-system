@@ -55,4 +55,18 @@ public class CategoryController(
                 CategoryDto.FromDomainModel(c)),
             e => e.ToObjectResult());
     }
+
+    [HttpDelete("{categoryId:int}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult> Delete(
+    [FromRoute] int categoryId,
+    CancellationToken cancellationToken)
+    {
+        var command = new DeleteCategoryCommand { Id = categoryId };
+        var result = await sender.Send(command, cancellationToken);
+
+        return result.Match<ActionResult>(
+            _ => NoContent(),
+            e => e.ToObjectResult());
+    }
 }
