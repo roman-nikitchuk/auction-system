@@ -16,6 +16,7 @@ public class CreateAuctionCommand : IRequest<Either<BaseException, Auction>>
     public required DateTime StartDate { get; init; }
     public required DateTime EndDate { get; init; }
     public required int OwnerId { get; init; }
+    public string? ImageUrl { get; init; }
 }
 
 public class CreateAuctionCommandHandler(
@@ -50,7 +51,8 @@ public class CreateAuctionCommandHandler(
                     request.CategoryId,
                     request.StartingPrice,
                     request.StartDate,
-                    request.EndDate),
+                    request.EndDate,
+                    request.ImageUrl),
                 cancellationToken);
 
             return auction;

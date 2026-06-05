@@ -59,7 +59,8 @@ public class AuctionController(ISender sender, IAuctionQueries auctionQueries) :
             StartingPrice = request.StartingPrice,
             StartDate = request.StartDate,
             EndDate = request.EndDate,
-            OwnerId = request.OwnerId
+            OwnerId = request.OwnerId,
+            ImageUrl = request.ImageUrl
         };
 
         var result = await sender.Send(command, cancellationToken);
@@ -84,7 +85,8 @@ public class AuctionController(ISender sender, IAuctionQueries auctionQueries) :
             Description = request.Description,
             CategoryId = request.CategoryId,
             StartDate = request.StartDate,
-            EndDate = request.EndDate
+            EndDate = request.EndDate,
+            ImageUrl = request.ImageUrl
         };
 
         var result = await sender.Send(command, cancellationToken);

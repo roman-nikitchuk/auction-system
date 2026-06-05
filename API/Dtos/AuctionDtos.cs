@@ -17,7 +17,8 @@ public record AuctionDto(
     DateTime StartDate,
     DateTime EndDate,
     DateTime CreatedAt,
-    DateTime? UpdatedAt)
+    DateTime? UpdatedAt,
+    string? ImageUrl)
 {
     public static AuctionDto FromDomainModel(Auction model)
         => new(
@@ -34,7 +35,8 @@ public record AuctionDto(
             model.StartDate,
             model.EndDate,
             model.CreatedAt,
-            model.UpdatedAt);
+            model.UpdatedAt,
+            model.ImageUrl);
 }
 
 public record CreateAuctionDto(
@@ -44,11 +46,13 @@ public record CreateAuctionDto(
     decimal StartingPrice,
     DateTime StartDate,
     DateTime EndDate,
-    int OwnerId);
+    int OwnerId,
+    string? ImageUrl);
 
 public record UpdateAuctionDto(
     string Title,
     string Description,
     int CategoryId,
     DateTime StartDate,
-    DateTime EndDate);
+    DateTime EndDate,
+    string? ImageUrl);
