@@ -29,7 +29,9 @@ public record AuctionDto(
             model.Owner?.UserName ?? string.Empty,
             model.CategoryId,
             model.Category?.Name ?? string.Empty,
-            model.Status,
+            model.Status == AuctionStatus.Active && model.EndDate <= DateTime.UtcNow
+            ? AuctionStatus.Ended
+            : model.Status,
             model.StartingPrice,
             model.CurrentBid,
             model.StartDate,
